@@ -1,0 +1,25 @@
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: some-rabbit
+    hostname: my-rabbit
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    ports:
+      - "15672:15672" # Consola de administración
+      - "5672:5672"   # Puerto AMQP
+    networks:
+      - my_network
+
+  productor:
+    image: dev-productor-pedido
+    container_name: dev-productor-pedido
+    ports:
+      - "5050:5050" # Puerto expuesto por el productor
+    networks:
+      - my_network
+  
+networks:
+  my_network:
+    name: my_network
